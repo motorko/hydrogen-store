@@ -1,3 +1,39 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .with-outline {
+    @apply focus:outline-dashed focus:outline-1 focus:outline-offset-[3px];
+  }
+
+  .btn {
+    @apply with-outline font-semibold flex items-center gap-2 w-fit justify-center text-center rounded-lg transition-all cursor-pointer disabled:bg-background disabled:text-disabled disabled:hover:bg-background disabled:hover:text-disabled disabled:hover:cursor-not-allowed;
+  }
+
+  .btn-primary {
+    @apply btn  bg-black text-white hover:bg-yellow hover:text-black focus:bg-yellow focus:text-black;
+  }
+  .btn-primary-large {
+    @apply btn-primary px-5 py-3;
+  }
+  .btn-primary-medium {
+    @apply btn-primary  px-5 py-[10px];
+  }
+  .btn-primary-small {
+    @apply btn-primary  px-5 py-2 text-sm;
+  }
+
+  .btn-secondary {
+    @apply btn border border-black hover:bg-black hover:text-white focus:bg-black focus:text-white;
+  }
+  .btn-secondary-large {
+    @apply btn-secondary px-5 py-3;
+  }
+  .btn-secondary-medium {
+    @apply btn-secondary  px-5 py-[10px];
+  }
+  .btn-secondary-small {
+    @apply btn-secondary  px-5 py-2 text-sm;
+  }
+}
