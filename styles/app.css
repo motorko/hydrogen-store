@@ -2,6 +2,44 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  body {
+    @apply font-sans;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-serif leading-normal;
+  }
+
+  h1 {
+    @apply text-4xl md:text-[46px];
+  }
+  h2 {
+    @apply text-[32px] md:text-[40px];
+  }
+
+  h3 {
+    @apply text-[26px] md:text-4xl;
+  }
+
+  h4 {
+    @apply text-[22px] md:text-[32px];
+  }
+
+  h5 {
+    @apply text-xl md:text-[26px];
+  }
+
+  h6 {
+    @apply text-base md:text-[22px];
+  }
+}
+
 @layer components {
   .with-outline {
     @apply focus:outline-dashed focus:outline-1 focus:outline-offset-[3px];
