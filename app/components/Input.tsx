@@ -28,6 +28,7 @@ export default function Input({
   onInputKeyDown,
   submitButton = false,
   className,
+  ...props
 }: InputProps) {
   const labelJSX = label ? (
     <span
@@ -51,7 +52,7 @@ export default function Input({
   ) : null;
 
   return (
-    <label className={`inline-flex flex-col gap-y-1 ${className}`}>
+    <label className={`inline-flex flex-col gap-y-1 ${className}`} {...props}>
       {labelJSX}
       <span className="relative inline-block">
         <input
