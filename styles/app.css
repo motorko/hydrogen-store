@@ -53,6 +53,13 @@
   input[type='number'] {
     @apply px-4 py-2 transition-all border rounded-none outline-none border-borderLight placeholder:text-secondary hover:border-black focus:border-black h-fit disabled:bg-accent disabled:hover:border-borderLight disabled:focus:border-borderLight;
   }
+
+  select {
+    @apply py-2 pl-4 pr-12 bg-white border outline-none appearance-none border-borderLight hover:border-black focus:border-black disabled:bg-accent disabled:hover:border-borderLight disabled:focus:border-borderLight rounded-[4px] h-fit w-fit inline-block;
+    background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M11.9998 16C11.7438 16 11.4878 15.902 11.2928 15.707L6.29276 10.707C5.90176 10.316 5.90176 9.68401 6.29276 9.29301C6.68376 8.90201 7.31576 8.90201 7.70676 9.29301L11.9998 13.586L16.2928 9.29301C16.6838 8.90201 17.3158 8.90201 17.7068 9.29301C18.0978 9.68401 18.0978 10.316 17.7068 10.707L12.7068 15.707C12.5118 15.902 12.2558 16 11.9998 16Z' fill='black'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: calc(100% - 10px) center;
+  }
 }
 
 @layer components {

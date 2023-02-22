@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import {DetailedHTMLProps, HTMLAttributes} from 'react';
 import Icons from './Icons';
 
@@ -12,6 +13,7 @@ export interface InputProps
   name?: string;
   placeholder?: string;
   value?: string;
+  disabled?: boolean;
   onInputChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onInputKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
   submitButton?: boolean;
@@ -24,6 +26,7 @@ export default function Input({
   name,
   placeholder,
   value,
+  disabled = false,
   onInputChange,
   onInputKeyDown,
   submitButton = false,
@@ -56,13 +59,17 @@ export default function Input({
       {labelJSX}
       <span className="relative inline-block">
         <input
+          disabled={disabled}
           type={type}
           name={name}
           placeholder={placeholder}
           value={value}
           onChange={onInputChange}
           onKeyDown={onInputKeyDown}
-          className={submitButton ? '!pr-[42px]' : ''}
+          className={clsx({
+            '!pr-[42px]': submitButton,
+            '!border-error hover:!border-black focus:!border-black': error,
+          })}
         />
         {submitButtonJSX}
       </span>
