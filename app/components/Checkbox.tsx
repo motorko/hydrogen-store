@@ -28,7 +28,7 @@ export default function Checkbox({
   return (
     <label
       tabIndex={disabled ? -1 : 0}
-      className={`text-base inline-flex gap-2 group  ${clsx({
+      className={`text-base flex w-fit gap-2 group  ${clsx({
         'cursor-pointer text-black': !disabled,
         'cursor-default text-secondary': disabled,
       })}`}
