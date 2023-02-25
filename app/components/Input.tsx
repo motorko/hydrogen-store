@@ -68,7 +68,8 @@ export default function Input({
           onKeyDown={onInputKeyDown}
           className={clsx({
             '!pr-[42px]': submitButton,
-            '!border-error hover:!border-black focus:!border-black': error,
+            '!border-error hover:!border-black focus:!border-black':
+              error && !disabled,
           })}
         />
         {submitButtonJSX}

@@ -45,7 +45,8 @@ export default function Select({
           name={name}
           {...selectValue}
           className={clsx({
-            '!border-error hover:!border-black focus:!border-black': error,
+            '!border-error hover:!border-black focus:!border-black':
+              error && !disabled,
           })}
         >
           {children}

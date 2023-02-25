@@ -50,7 +50,8 @@
   input[type='text'],
   input[type='email'],
   input[type='password'],
-  input[type='number'] {
+  input[type='number'],
+  textarea {
     @apply px-4 py-2 transition-all border rounded-none outline-none border-borderLight placeholder:text-secondary hover:border-black focus:border-black h-fit disabled:bg-accent disabled:hover:border-borderLight disabled:focus:border-borderLight;
   }
 
