@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import {DetailedHTMLProps, HTMLAttributes} from 'react';
-import Icons from './Icons';
+import Icons from '../Icons';
 
 export interface InputProps
   extends DetailedHTMLProps<
