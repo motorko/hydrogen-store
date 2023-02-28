@@ -97,4 +97,21 @@
   .btn-secondary-small {
     @apply px-5 py-2 text-sm btn-secondary;
   }
+
+  .conveyor-belt {
+    animation: conveyor-belt 40s linear 0s infinite normal none;
+  }
+  .animation-pause {
+    animation-play-state: paused;
+  }
+}
+
+@keyframes conveyor-belt {
+  from {
+    transform: translateX(0%);
+  }
+
+  to {
+    transform: translateX(-100%);
+  }
 }
