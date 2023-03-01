@@ -27,6 +27,9 @@ module.exports = {
       serif: ['Noto Serif', 'serif'],
     },
     extend: {
+      transitionDuration: {
+        DEFAULT: '400ms',
+      },
       boxShadow: {
         deeph0: '0px 1px 0px #EFEFEF',
         deeph1:

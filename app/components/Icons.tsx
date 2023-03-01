@@ -1,7 +1,7 @@
 import {SVGAttributes} from 'react';
 
 export interface IconProps extends SVGAttributes<SVGElement> {
-  icon: 'plus' | 'arrow-right';
+  icon: 'plus' | 'arrow-right' | 'chevron-bottom';
 }
 
 export default function Icons({icon, fill = 'currentColor'}: IconProps) {
@@ -34,7 +34,22 @@ export default function Icons({icon, fill = 'currentColor'}: IconProps) {
           />
         </svg>
       );
-
+    case 'chevron-bottom':
+      return (
+        <svg
+          width="18"
+          height="18"
+          viewBox="0 0 18 18"
+          fill="currencyColor"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            fillRule="evenodd"
+            clipRule="evenodd"
+            d="M9.00019 12C8.80819 12 8.61619 11.9265 8.46994 11.7803L4.71994 8.03025C4.42669 7.737 4.42669 7.263 4.71994 6.96975C5.01319 6.6765 5.48719 6.6765 5.78044 6.96975L9.00019 10.1895L12.2199 6.96975C12.5132 6.6765 12.9872 6.6765 13.2804 6.96975C13.5737 7.263 13.5737 7.737 13.2804 8.03025L9.53044 11.7803C9.38419 11.9265 9.19219 12 9.00019 12Z"
+          />
+        </svg>
+      );
     default:
       return null;
   }

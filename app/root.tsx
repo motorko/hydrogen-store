@@ -126,9 +126,6 @@ const LAYOUT_QUERY = `#graphql
       id
       items {
         ...MenuItem
-        items {
-          ...MenuItem
-        }
       }
     }
     headerMenu: menu(handle: $headerMenuHandle) {
@@ -137,6 +134,9 @@ const LAYOUT_QUERY = `#graphql
         ...MenuItem
         items {
           ...MenuItem
+          items {
+            ...MenuItem
+          }
         }
       }
     }
