@@ -126,9 +126,6 @@ const LAYOUT_QUERY = `#graphql
       id
       items {
         ...MenuItem
-        items {
-          ...MenuItem
-        }
       }
     }
     headerMenu: menu(handle: $headerMenuHandle) {
@@ -137,6 +134,9 @@ const LAYOUT_QUERY = `#graphql
         ...MenuItem
         items {
           ...MenuItem
+          items {
+            ...MenuItem
+          }
         }
       }
     }
@@ -180,7 +180,7 @@ async function getLayoutData({storefront}: AppLoadContext) {
       footerMenuHandle: FOOTER_MENU_HANDLE,
       language: storefront.i18n.language,
     },
-    cache: storefront.CacheNone(),
+    cache: storefront.CacheLong(),
   });
 
   invariant(data, 'No data returned from Shopify API');

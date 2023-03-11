@@ -9,7 +9,7 @@ export interface InputProps
   > {
   label?: string;
   error?: string;
-  type?: 'text' | 'email' | 'password' | 'number';
+  type?: 'text' | 'email' | 'password' | 'number' | 'search';
   name?: string;
   placeholder?: string;
   value?: string;
@@ -50,7 +50,7 @@ export default function Input({
       className="with-outline w-[42px] h-[42px] absolute right-0 top-1/2 -translate-y-1/2 flex justify-center items-center"
       type="submit"
     >
-      <Icons icon="arrow-right" />
+      <Icons icon={type === 'search' ? 'search' : 'arrow-right'} />
     </button>
   ) : null;
 
@@ -66,11 +66,11 @@ export default function Input({
           value={value}
           onChange={onInputChange}
           onKeyDown={onInputKeyDown}
-          className={clsx({
+          className={`w-full ${clsx({
             '!pr-[42px]': submitButton,
             '!border-error hover:!border-black focus:!border-black':
               error && !disabled,
-          })}
+          })}`}
         />
         {submitButtonJSX}
       </span>

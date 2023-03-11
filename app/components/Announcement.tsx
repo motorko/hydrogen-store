@@ -41,7 +41,7 @@ export default function Announcement({items}: AnnouncementProps) {
     );
 
   return (
-    <div className="sticky top-0 flex justify-center px-3 py-2 text-center text-white bg-black group">
+    <div className="sticky top-0 flex justify-center px-3 py-2 overflow-hidden text-center text-white bg-black group">
       {content}
     </div>
   );
