@@ -8,6 +8,7 @@ import {Link} from './Link';
 
 interface HeaderProps {
   menu: EnhancedMenu;
+  top: 'top-0' | 'top-10';
 }
 
 const Logo = () => (
@@ -22,9 +23,9 @@ const Logo = () => (
   </svg>
 );
 
-export default function Header({menu}: HeaderProps) {
+export default function Header({menu, top}: HeaderProps) {
   return (
-    <header className="sticky z-40 bg-white top-10 shadow-deeph0">
+    <header className={`sticky z-40 bg-white shadow-deeph0 ${top}`}>
       <div className="relative flex items-center justify-between">
         <div className="w-2/5">
           <DesktopMenu items={menu.items} />

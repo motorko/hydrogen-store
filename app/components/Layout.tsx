@@ -8,14 +8,25 @@ interface LayoutProps extends PropsWithChildren {
 }
 
 export default function Layout({layout, children}: LayoutProps) {
+  const announcementItems = layout?.announcementMenu?.items.length
+    ? layout.announcementMenu.items
+    : null;
+
+  const headerMenu = layout?.headerMenu?.items.length
+    ? layout.headerMenu
+    : null;
+
   return (
     <>
-      {layout?.announcementMenu?.items.length ? (
-        <Announcement items={layout.announcementMenu.items} />
+      {announcementItems ? <Announcement items={announcementItems} /> : null}
+
+      {headerMenu ? (
+        <Header
+          menu={headerMenu}
+          top={announcementItems ? 'top-10' : 'top-0'}
+        />
       ) : null}
-      {layout?.headerMenu?.items.length ? (
-        <Header menu={layout.headerMenu} />
-      ) : null}
+
       <main id="main-content" className="h-screen">
         {children}
       </main>
