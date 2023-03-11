@@ -1,14 +1,15 @@
 import {Transition} from '@headlessui/react';
 import clsx from 'clsx';
-import {useEffect, useRef, useState} from 'react';
+import {Fragment, useEffect, useRef, useState} from 'react';
 import {useClickAway} from 'react-use';
 import {EnhancedMenu, EnhancedMenuItem} from '~/lib/utils';
+import Input from './form/Input';
 import Icons from './Icons';
 import {Link} from './Link';
 
 interface HeaderProps {
   menu: EnhancedMenu;
-  top: 'top-0' | 'top-10';
+  withAnnouncement: boolean;
 }
 
 const Logo = () => (
@@ -23,23 +24,29 @@ const Logo = () => (
   </svg>
 );
 
-export default function Header({menu, top}: HeaderProps) {
+export default function Header({menu, withAnnouncement}: HeaderProps) {
   return (
-    <header className={`sticky z-40 bg-white shadow-deeph0 ${top}`}>
-      <div className="relative flex items-center justify-between">
-        <div className="w-2/5">
+    <header
+      className={`sticky z-40 bg-white shadow-deeph0 ${clsx({
+        'top-0': !withAnnouncement,
+        'top-10': withAnnouncement,
+      })}`}
+    >
+      <div className="flex items-center justify-between py-2 lg:py-0">
+        <div className="w-1/3 lg:w-2/5">
+          <MobileMenu items={menu.items} withAnnouncement={withAnnouncement} />
           <DesktopMenu items={menu.items} />
         </div>
-        <div className="w-1/5">
+        <div className="w-1/3 lg:w-1/5">
           <Link to="/" className="mx-auto block w-fit">
             <Logo />
           </Link>
         </div>
-        <div className="w-2/5 flex justify-end gap-x-4 pr-4">
-          <Link to="/search">
+        <div className="w-1/3 lg:w-2/5 flex justify-end gap-x-4 pr-4">
+          <Link to="/search" className="hidden lg:block">
             <Icons icon="search" />
           </Link>
-          <Link to="/account">
+          <Link to="/account" className="hidden lg:block">
             <Icons icon="account" />
           </Link>
           <Link to="/cart">
@@ -55,11 +62,185 @@ interface MenuProps {
   items: EnhancedMenuItem[];
 }
 
+function MobileMenu({
+  items,
+  withAnnouncement,
+}: MenuProps & {withAnnouncement: boolean}) {
+  const [open, setOpen] = useState<boolean>(false);
+  const [animmateInner, setAnimmateInner] = useState<boolean>(false);
+  const [dropdown, setDropdown] = useState<string | undefined>();
+
+  useEffect(() => {
+    setTimeout(() => {
+      setAnimmateInner(open);
+    }, 0);
+  }, [open]);
+
+  const ref = useRef(null);
+  useClickAway(ref, () => setOpen(false), ['click']);
+
+  return (
+    <>
+      <button
+        onClick={() => setOpen(!open)}
+        className="px-4 flex items-center justify-center lg:hidden"
+        aria-label="Open menu"
+      >
+        <Icons icon="burger" />
+      </button>
+      <Transition
+        show={open}
+        as="nav"
+        className={`lg:hidden fixed left-0 right-0 bottom-0 bg-overlayDark transition-colors overflow-hidden ${clsx(
+          {
+            'top-[105px]': withAnnouncement,
+            'top-[65px]': !withAnnouncement,
+          },
+        )}`}
+        onKeyDown={(event: React.KeyboardEvent<HTMLDivElement>) =>
+          event.code === 'Escape' ? setOpen(false) : null
+        }
+        enterFrom="bg-transparent"
+        enterTo="bg-overlayDark"
+        leaveFrom="bg-overlayDark"
+        leaveTo="bg-transparent"
+      >
+        <Transition
+          show={animmateInner}
+          as="div"
+          ref={ref}
+          className="bg-white w-full py-5 h-fit max-h-full overflow-auto transition-transform"
+          enterFrom="-translate-y-full"
+          enterTo="translate-y-0"
+          leaveFrom="translate-y-0"
+          leaveTo="-translate-y-full"
+        >
+          <form action="/search" className="px-4">
+            <Input
+              type="search"
+              submitButton
+              className="w-full"
+              name="q"
+              placeholder="Search"
+            />
+          </form>
+          <ul className="pt-2">
+            {items.map((item) => {
+              return (
+                <Fragment key={item.id}>
+                  <li>
+                    {item.items.length ? (
+                      <div
+                        role="button"
+                        tabIndex={item.items.length ? 0 : -1}
+                        className="px-4 py-2 flex justify-between items-center"
+                        onClick={() =>
+                          setDropdown(
+                            item.id === dropdown ? undefined : item.id,
+                          )
+                        }
+                        onKeyDown={(event) => {
+                          if (
+                            event.code === 'Enter' ||
+                            event.code === 'Space'
+                          ) {
+                            setDropdown(
+                              item.id === dropdown ? undefined : item.id,
+                            );
+                          }
+                        }}
+                      >
+                        <Link
+                          to={item.to}
+                          target={item.target}
+                          className={({isActive}) =>
+                            `bottom-line pr-2 ${clsx({active: isActive})}`
+                          }
+                        >
+                          {item.title}
+                        </Link>
+                        <span
+                          className={`relative top-[2px] transition-transform`}
+                        >
+                          <Icons icon="chevron-bottom" />
+                        </span>
+                      </div>
+                    ) : (
+                      <div className="px-4 py-2">
+                        <Link
+                          to={item.to}
+                          target={item.target}
+                          className={({isActive}) =>
+                            `bottom-line pr-2 ${clsx({active: isActive})}`
+                          }
+                        >
+                          {item.title}
+                        </Link>
+                      </div>
+                    )}
+                  </li>
+                  {item.items.length ? (
+                    <ul
+                      className={`pb-2 ${clsx({
+                        hidden: item.id !== dropdown,
+                      })}`}
+                    >
+                      {item.items.map((item) => {
+                        return (
+                          <Fragment key={item.id}>
+                            <li className="pl-6 pr-4 py-1">
+                              <Link
+                                to={item.to}
+                                target={item.target}
+                                className={({isActive}) =>
+                                  `bottom-line pr-2 ${clsx({active: isActive})}`
+                                }
+                              >
+                                {item.title}
+                              </Link>
+                            </li>
+                            {item.items.length
+                              ? item.items.map((item) => {
+                                  return (
+                                    <li
+                                      key={item.id}
+                                      className="pl-8 pr-4 py-1"
+                                    >
+                                      <Link
+                                        to={item.to}
+                                        target={item.target}
+                                        className={({isActive}) =>
+                                          `bottom-line pr-2 ${clsx({
+                                            active: isActive,
+                                          })}`
+                                        }
+                                      >
+                                        {item.title}
+                                      </Link>
+                                    </li>
+                                  );
+                                })
+                              : null}
+                          </Fragment>
+                        );
+                      })}
+                    </ul>
+                  ) : null}
+                </Fragment>
+              );
+            })}
+          </ul>
+        </Transition>
+      </Transition>
+    </>
+  );
+}
+
 function DesktopMenu({items}: MenuProps) {
   const [megaMenu, setMegaMenu] = useState<string | undefined>();
 
   return (
-    <nav>
+    <nav className="hidden lg:block">
       <ul className="flex">
         {items.map((item) => (
           <li key={item.id} className="flex items-center gap-1 px-4 py-6">
@@ -114,7 +295,7 @@ function MegaMenu({items, isShowing, close}: MegaMenuProps) {
       onKeyDown={(event: React.KeyboardEvent<HTMLDivElement>) =>
         event.code === 'Escape' ? close() : null
       }
-      className="absolute left-0 w-full px-4 py-6 transition-all bg-white top-full shadow-deeph0"
+      className="absolute left-0 w-full px-4 py-6 transition-all bg-white top-[calc(100%+1px)] shadow-deeph0"
       enterFrom="opacity-0 translate-y-full"
       enterTo="opacity-100 translate-y-0"
       leaveFrom="opacity-100 translate-y-0"

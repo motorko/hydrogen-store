@@ -23,7 +23,7 @@ export default function Layout({layout, children}: LayoutProps) {
       {headerMenu ? (
         <Header
           menu={headerMenu}
-          top={announcementItems ? 'top-10' : 'top-0'}
+          withAnnouncement={Boolean(announcementItems?.length)}
         />
       ) : null}
 
